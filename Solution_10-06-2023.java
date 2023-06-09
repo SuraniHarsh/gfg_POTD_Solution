@@ -1,53 +1,60 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+//{ Driver Code Starts
+//Initial Template for Java
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main(String[] args) throws IOException
+	{
+	        BufferedReader br =
+            new BufferedReader(new InputStreamReader(System.in));
+        int t =
+            Integer.parseInt(br.readLine().trim()); // Inputting the testcases
+        while(t-->0)
+        {
+            int n = Integer.parseInt(br.readLine().trim());
+            int a[] = new int[n];
+            String inputLine[] = br.readLine().trim().split(" ");
+            for (int i = 0; i < n; i++) {
+                a[i] = Integer.parseInt(inputLine[i]);
+            }
+            
+            Solution obj = new Solution();
+            obj.Rearrange(a, n);
+            
+            StringBuilder output = new StringBuilder();
+            for(int i=0;i<n;i++)
+                output.append(a[i]+" ");
+            System.out.println(output);
+            
+        }
+	}
+}
+
+
+// } Driver Code Ends
+
+
+//User function Template for Java
 
 class Solution {
-    public List<String> find_permutation(String S) {
-        List<String> result = new ArrayList<>();
-        char[] chars = S.toCharArray();
-        int n = chars.length;
-
-        Arrays.sort(chars);
-
-        boolean[] used = new boolean[n];
-        StringBuilder sb = new StringBuilder();
-
-        backtrack(chars, used, sb, result);
-
-        return result;
-    }
-
-    private void backtrack(char[] chars, boolean[] used, StringBuilder sb, List<String> result) {
-        int n = chars.length;
-
-        if (sb.length() == n) {
-            result.add(sb.toString());
-            return;
-        }
+    public void Rearrange(int[] arr, int n) {
+        int negIdx = 0; // Index to track the position of the next negative number
 
         for (int i = 0; i < n; i++) {
-            if (used[i]) continue;
-
-            if (i > 0 && chars[i] == chars[i - 1] && !used[i - 1]) continue;
-
-            used[i] = true;
-            sb.append(chars[i]);
-
-            backtrack(chars, used, sb, result);
-
-            used[i] = false;
-            sb.deleteCharAt(sb.length() - 1);
-        }
-    }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        String S = "ABC";
-        List<String> permutations = solution.find_permutation(S);
-
-        for (String permutation : permutations) {
-            System.out.print(permutation + " ");
+            if (arr[i] < 0) {
+                if (i != negIdx) {
+                    // Shift all elements between negIdx and i to the right by one position
+                    int temp = arr[i];
+                    for (int j = i; j > negIdx; j--) {
+                        arr[j] = arr[j - 1];
+                    }
+                    arr[negIdx] = temp;
+                }
+                negIdx++;
+            }
         }
     }
 }
