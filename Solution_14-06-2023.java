@@ -32,7 +32,7 @@ class GFG {
 //User function Template for Java
 
 class Solution {
-    static long maxDiamonds(int[] A, int N, int K) {
+    long maxDiamonds(int[] A, int N, int K) {
         PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
 
         // Add all the bags to the priority queue
