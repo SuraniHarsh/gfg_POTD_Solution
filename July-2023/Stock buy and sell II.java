@@ -1,4 +1,8 @@
 class Solution {
+    public static void main(String[] args) {
+        int[] arr = {3, 5, 8, 2, 10};
+        System.out.println(stockBuyAndSell(5, arr));
+    }
     public static int stockBuyAndSell(int n, int[] prices) {
         int maxProfit = 0;
         
